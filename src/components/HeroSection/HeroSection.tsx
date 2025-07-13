@@ -137,6 +137,7 @@ const GridItem: React.FC<GridItemProps> = ({
           )}
           onLoad={() => setImageLoaded(true)}
           priority={index < 4}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         
         {/* 그라데이션 오버레이 */}

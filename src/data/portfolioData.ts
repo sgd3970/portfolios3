@@ -115,7 +115,7 @@ export const portfolioData: IProject[] = [
         id: 'motion-design',
         title: '모션 디자인',
         description: '파도의 자연스러운 움직임을 모션 그래픽으로 재현하여 매혹적인 시각 효과를 만들었습니다.',
-        imageUrl: 'https://images.unsplash.com/photo-1569163139993-de4ac7feda1c?w=600&h=400&fit=crop',
+        imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=400&fit=crop',
         order: 3,
         isCompleted: true
       },

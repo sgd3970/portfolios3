@@ -2,21 +2,20 @@
 
 import { motion } from 'framer-motion'
 import { 
-  Github, 
-  Linkedin, 
-  Twitter, 
   Instagram, 
+  Twitter, 
   Facebook, 
+  Linkedin, 
+  Github, 
   Youtube, 
-  Dribbble, 
-  Behance,
+  Dribbble,
+  Globe,
   Mail,
   Phone,
-  MessageCircle,
-  Globe,
+  MapPin,
   ExternalLink
 } from 'lucide-react'
-import { Button } from '../UI/Button'
+import Button from '../UI/Button'
 import { cn } from '@/lib/utils'
 
 interface SocialLink {
@@ -45,69 +44,30 @@ interface SocialLinksProps {
   onLinkClick?: (link: SocialLink) => void
 }
 
-// Predefined social platform configurations
-const socialPlatforms = {
-  github: {
-    icon: <Github className="w-full h-full" />,
-    color: '#333333',
-    label: 'GitHub'
-  },
-  linkedin: {
-    icon: <Linkedin className="w-full h-full" />,
-    color: '#0077B5',
-    label: 'LinkedIn'
-  },
-  twitter: {
-    icon: <Twitter className="w-full h-full" />,
-    color: '#1DA1F2',
-    label: 'Twitter'
-  },
-  instagram: {
-    icon: <Instagram className="w-full h-full" />,
-    color: '#E4405F',
-    label: 'Instagram'
-  },
-  facebook: {
-    icon: <Facebook className="w-full h-full" />,
-    color: '#1877F2',
-    label: 'Facebook'
-  },
-  youtube: {
-    icon: <Youtube className="w-full h-full" />,
-    color: '#FF0000',
-    label: 'YouTube'
-  },
-  dribbble: {
-    icon: <Dribbble className="w-full h-full" />,
-    color: '#EA4C89',
-    label: 'Dribbble'
-  },
-  behance: {
-    icon: <Behance className="w-full h-full" />,
-    color: '#1769FF',
-    label: 'Behance'
-  },
-  email: {
-    icon: <Mail className="w-full h-full" />,
-    color: '#EA4335',
-    label: 'Email'
-  },
-  phone: {
-    icon: <Phone className="w-full h-full" />,
-    color: '#25D366',
-    label: 'Phone'
-  },
-  whatsapp: {
-    icon: <MessageCircle className="w-full h-full" />,
-    color: '#25D366',
-    label: 'WhatsApp'
-  },
-  website: {
-    icon: <Globe className="w-full h-full" />,
-    color: '#6B7280',
-    label: 'Website'
-  }
-}
+// 플랫폼별 아이콘 매핑
+const iconMapping = {
+  instagram: <Instagram className="w-full h-full" />,
+  twitter: <Twitter className="w-full h-full" />,
+  facebook: <Facebook className="w-full h-full" />,
+  linkedin: <Linkedin className="w-full h-full" />,
+  github: <Github className="w-full h-full" />,
+  youtube: <Youtube className="w-full h-full" />,
+  dribbble: <Dribbble className="w-full h-full" />,
+  behance: <Globe className="w-full h-full" />,
+  website: <Globe className="w-full h-full" />,
+  email: <Mail className="w-full h-full" />,
+  phone: <Phone className="w-full h-full" />,
+  location: <MapPin className="w-full h-full" />,
+  tiktok: <Globe className="w-full h-full" />,
+  pinterest: <Globe className="w-full h-full" />,
+  snapchat: <Globe className="w-full h-full" />,
+  whatsapp: <Phone className="w-full h-full" />,
+  telegram: <ExternalLink className="w-full h-full" />,
+  discord: <ExternalLink className="w-full h-full" />,
+  twitch: <Globe className="w-full h-full" />,
+  reddit: <Globe className="w-full h-full" />,
+  other: <ExternalLink className="w-full h-full" />
+};
 
 export default function SocialLinks({
   links,
@@ -168,7 +128,6 @@ export default function SocialLinks({
   }
 
   const getVariantClasses = (platform: string) => {
-    const platformConfig = socialPlatforms[platform.toLowerCase() as keyof typeof socialPlatforms]
     const baseClasses = "transition-all duration-200 group"
     
     switch (variant) {
@@ -256,8 +215,7 @@ export default function SocialLinks({
   }
 
   const renderIcon = (link: SocialLink) => {
-    const platformConfig = socialPlatforms[link.platform.toLowerCase() as keyof typeof socialPlatforms]
-    const icon = link.icon || platformConfig?.icon || <ExternalLink className="w-full h-full" />
+    const icon = iconMapping[link.platform as keyof typeof iconMapping] || <ExternalLink className="w-full h-full" />
     
     return (
       <span className={getSizeClasses().icon}>
@@ -269,8 +227,7 @@ export default function SocialLinks({
   const renderLabel = (link: SocialLink) => {
     if (!showLabels && !(!iconOnly && !showLabels)) return null
     
-    const platformConfig = socialPlatforms[link.platform.toLowerCase() as keyof typeof socialPlatforms]
-    const label = link.label || platformConfig?.label || link.platform
+    const label = link.label || link.platform
     
     return (
       <span className="text-sm font-medium">
@@ -315,7 +272,6 @@ export default function SocialLinks({
       viewport={{ once: true }}
     >
       {links.map((link, index) => {
-        const platformConfig = socialPlatforms[link.platform.toLowerCase() as keyof typeof socialPlatforms]
         const hoverAnimation = getHoverAnimation()
         
         return (
@@ -335,13 +291,13 @@ export default function SocialLinks({
                 rounded ? 'rounded-full' : 'rounded-md',
                 "relative overflow-hidden"
               )}
-              aria-label={link.label || platformConfig?.label || link.platform}
+              aria-label={link.label || link.platform}
             >
               {/* Background effect */}
               {variant === 'filled' && (
                 <div 
                   className="absolute inset-0 opacity-20 group-hover:opacity-100 transition-opacity duration-200"
-                  style={{ backgroundColor: link.color || platformConfig?.color || '#6B7280' }}
+                  style={{ backgroundColor: link.color || '#6B7280' }}
                 />
               )}
               
@@ -361,7 +317,7 @@ export default function SocialLinks({
             {/* Tooltip */}
             {showTooltips && iconOnly && (
               <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-20">
-                {link.label || platformConfig?.label || link.platform}
+                {link.label || link.platform}
                 <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-t-4 border-transparent border-t-black"></div>
               </div>
             )}

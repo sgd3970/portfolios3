@@ -3,8 +3,8 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Play, Pause, Volume2, VolumeX, Maximize, Minimize, RotateCcw, Settings, Download } from 'lucide-react'
-import { Button } from '../UI/Button'
-import { Card } from '../UI/Card'
+import Button from '../UI/Button'
+import Card from '../UI/Card'
 import { cn } from '@/lib/utils'
 
 interface VideoPlayerProps {
@@ -66,7 +66,7 @@ export default function VideoPlayer({
   const [showSettings, setShowSettings] = useState(false)
   const [playbackRate, setPlaybackRate] = useState(1)
   
-  const controlsTimeoutRef = useRef<NodeJS.Timeout>()
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const video = videoRef.current

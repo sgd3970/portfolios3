@@ -15,6 +15,19 @@ const nextConfig = {
     optimizePackageImports: ['framer-motion', 'lucide-react'],
   },
 
+  // Turbopack 설정 (stable)
+  turbopack: {
+    resolveAlias: {
+      '@': './src',
+    },
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+  },
+
   // 이미지 최적화 설정
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -48,44 +61,6 @@ const nextConfig = {
   // 성능 최적화
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
-  },
-
-  // 번들 최적화
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // 프로덕션 환경에서의 최적화
-    if (!dev && !isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            priority: 10,
-            reuseExistingChunk: true,
-          },
-          framer: {
-            test: /[\\/]node_modules[\\/](framer-motion)[\\/]/,
-            name: 'framer-motion',
-            priority: 20,
-            reuseExistingChunk: true,
-          },
-          lucide: {
-            test: /[\\/]node_modules[\\/](lucide-react)[\\/]/,
-            name: 'lucide-react',
-            priority: 20,
-            reuseExistingChunk: true,
-          },
-        },
-      };
-    }
-
-    // SVG 최적화
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
-
-    return config;
   },
 
   // 출력 최적화

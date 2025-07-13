@@ -229,9 +229,4 @@ export const OutlineButton = (props: ButtonProps) => (
 
 export const PillButton = (props: ButtonProps) => (
   <Button {...props} shape="pill" />
-);
-
-// 스타일 유틸리티 함수 (별도 파일로 분리 예정)
-function cn(...classes: (string | undefined | null | false)[]): string {
-  return classes.filter(Boolean).join(' ');
-} 
+); 

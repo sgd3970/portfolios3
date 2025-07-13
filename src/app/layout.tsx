@@ -5,6 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
   title: "Creative Portfolio - Alex Creative",
   description: "창의적인 디지털 아트와 혁신적인 디자인을 통해 브랜드와 사용자를 연결하는 디자이너의 포트폴리오",
   keywords: ["디자인", "포트폴리오", "그래픽디자인", "UI/UX", "브랜딩", "아트"],
@@ -14,11 +15,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Creative Portfolio - Alex Creative",
     description: "창의적인 디지털 아트와 혁신적인 디자인을 통해 브랜드와 사용자를 연결하는 디자이너의 포트폴리오",
-    url: "#",
+    url: "/",
     siteName: "Alex Creative Portfolio",
     images: [
       {
-        url: "#",
+        url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Alex Creative Portfolio",
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Creative Portfolio - Alex Creative",
     description: "창의적인 디지털 아트와 혁신적인 디자인을 통해 브랜드와 사용자를 연결하는 디자이너의 포트폴리오",
-    images: ["https://alexcreative.com/twitter-image.jpg"],
+    images: ["/images/twitter-image.jpg"],
     creator: "@alexcreative",
   },
   robots: {
@@ -45,11 +46,13 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  },
+};
+
+// Viewport 설정을 별도로 분리 (Next.js 15 권장사항)
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({

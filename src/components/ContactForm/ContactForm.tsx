@@ -2,9 +2,9 @@
 
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Send, CheckCircle, AlertCircle, Loader2, User, Mail, Phone, Building, MessageSquare } from 'lucide-react'
-import { Button } from '../UI/Button'
-import { Card } from '../UI/Card'
+import { Send, CheckCircle, AlertCircle, Loader2, User, Mail, Phone, Building, MessageSquare, MapPin } from 'lucide-react'
+import Button from '../UI/Button'
+import Card from '../UI/Card'
 import { cn } from '@/lib/utils'
 
 interface FormField {

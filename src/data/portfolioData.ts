@@ -5,6 +5,16 @@
 
 import { IProject, IArtist, ISocialLink } from '@/types';
 
+// 안정적인 이미지 URL 생성 함수
+const generateImageUrl = (seed: number, width: number = 800, height: number = 600) => {
+  return `https://picsum.photos/${width}/${height}?random=${seed}`;
+};
+
+// 프로젝트 이미지 URL 생성 함수
+const generateProjectImages = (baseId: number, count: number = 5) => {
+  return Array.from({ length: count }, (_, i) => generateImageUrl(baseId + i));
+};
+
 // 아티스트 정보
 export const artistData: IArtist = {
   name: 'Alex Creative',
@@ -84,13 +94,7 @@ export const portfolioData: IProject[] = [
     title: '바다의 파도 모션 그래픽',
     description: '자연의 힘과 아름다움을 표현한 바다 파도 모션 그래픽 프로젝트입니다. 파도의 움직임과 바다의 신비로운 분위기를 시각적으로 구현했습니다.',
     category: 'motion-graphics',
-    imageUrls: [
-      'https://picsum.photos/800/600?random=1',
-      'https://picsum.photos/800/600?random=2',
-      'https://picsum.photos/800/600?random=3',
-      'https://picsum.photos/800/600?random=4',
-      'https://picsum.photos/800/600?random=5'
-    ],
+    imageUrls: generateProjectImages(1000),
     thumbnailUrl: '/videos/thumbnails/thumbnail.png',
     videoUrl: '/videos/projects/testVideo.mp4',
     youtubeId: 'dQw4w9WgXcQ',
@@ -175,13 +179,7 @@ export const portfolioData: IProject[] = [
     title: 'Urban Transit 앱 UI/UX',
     description: '도시 교통 정보를 제공하는 모바일 앱의 UI/UX 디자인 프로젝트입니다. 사용자 친화적인 인터페이스와 직관적인 네비게이션을 구현했습니다.',
     category: 'ui-ux',
-    imageUrls: [
-      'https://picsum.photos/800/600?random=10',
-      'https://picsum.photos/800/600?random=11',
-      'https://picsum.photos/800/600?random=12',
-      'https://picsum.photos/800/600?random=13',
-      'https://picsum.photos/800/600?random=14'
-    ],
+    imageUrls: generateProjectImages(2000),
     thumbnailUrl: 'https://picsum.photos/400/300?random=10',
     videoUrl: '/videos/demos/testVideo.mp4',
     processSteps: [
@@ -251,13 +249,7 @@ export const portfolioData: IProject[] = [
     title: '자연 다큐멘터리 매거진',
     description: '자연과 환경을 주제로 한 매거진의 레이아웃과 타이포그래피 디자인 프로젝트입니다. 자연의 아름다움을 시각적으로 전달하는 데 중점을 두었습니다.',
     category: 'print-design',
-    imageUrls: [
-      'https://picsum.photos/800/600?random=20',
-      'https://picsum.photos/800/600?random=21',
-      'https://picsum.photos/800/600?random=22',
-      'https://picsum.photos/800/600?random=23',
-      'https://picsum.photos/800/600?random=24'
-    ],
+    imageUrls: generateProjectImages(3000),
     thumbnailUrl: 'https://picsum.photos/400/300?random=20',
     processSteps: [
       {
@@ -518,43 +510,71 @@ export const featuredProjectIds = [
   'nature-magazine'
 ];
 
-// 프로젝트 총 개수
+// 프로젝트 총 개수 (캐시됨)
 export const projectsCount = portfolioData.length;
 
-// 최근 프로젝트 가져오기 함수
+// 최근 프로젝트 가져오기 함수 (메모이제이션)
+let recentProjectsCache: IProject[] | null = null;
 export const getRecentProjects = (limit: number = 3): IProject[] => {
-  return portfolioData
-    .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
-    .slice(0, limit);
+  if (!recentProjectsCache) {
+    recentProjectsCache = portfolioData
+      .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
+      .slice(0, limit);
+  }
+  return recentProjectsCache;
 };
 
-// 카테고리별 프로젝트 가져오기 함수
+// 카테고리별 프로젝트 캐시
+const categoryCache = new Map<string, IProject[]>();
 export const getProjectsByCategory = (category: string): IProject[] => {
-  if (category === 'all') return portfolioData;
-  return portfolioData.filter(project => project.category === category);
+  if (!categoryCache.has(category)) {
+    const projects = category === 'all' 
+      ? portfolioData 
+      : portfolioData.filter(project => project.category === category);
+    categoryCache.set(category, projects);
+  }
+  return categoryCache.get(category)!;
 };
 
-// 프로젝트 ID로 프로젝트 찾기 함수
+// 프로젝트 ID 캐시
+const projectIdCache = new Map<string, IProject>();
+portfolioData.forEach(project => {
+  projectIdCache.set(project.id, project);
+});
+
 export const getProjectById = (id: string): IProject | undefined => {
-  return portfolioData.find(project => project.id === id);
+  return projectIdCache.get(id);
 };
 
-// 즐겨찾기 프로젝트 가져오기 함수
+// 즐겨찾기 프로젝트 캐시
+let featuredProjectsCache: IProject[] | null = null;
 export const getFeaturedProjects = (): IProject[] => {
-  return portfolioData.filter(project => 
-    featuredProjectIds.includes(project.id)
-  );
+  if (!featuredProjectsCache) {
+    featuredProjectsCache = portfolioData.filter(project => 
+      featuredProjectIds.includes(project.id)
+    );
+  }
+  return featuredProjectsCache;
 };
 
-// 태그별 프로젝트 가져오기 함수
+// 태그별 프로젝트 캐시
+const tagCache = new Map<string, IProject[]>();
 export const getProjectsByTag = (tag: string): IProject[] => {
-  return portfolioData.filter(project => 
-    project.tags.includes(tag)
-  );
+  if (!tagCache.has(tag)) {
+    const projects = portfolioData.filter(project => 
+      project.tags.includes(tag)
+    );
+    tagCache.set(tag, projects);
+  }
+  return tagCache.get(tag)!;
 };
 
-// 모든 태그 가져오기 함수
+// 모든 태그 캐시
+let allTagsCache: string[] | null = null;
 export const getAllTags = (): string[] => {
-  const tags = portfolioData.flatMap(project => project.tags);
-  return [...new Set(tags)].sort();
+  if (!allTagsCache) {
+    const tags = portfolioData.flatMap(project => project.tags);
+    allTagsCache = [...new Set(tags)].sort();
+  }
+  return allTagsCache;
 }; 

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import { Button } from '../UI/Button'
+import Button from '../UI/Button'
 import { cn } from '@/lib/utils'
 
 interface NavItem {

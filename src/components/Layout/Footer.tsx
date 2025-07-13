@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Heart, Mail, Phone, MapPin, Github, Linkedin, Twitter, Instagram, Dribbble } from 'lucide-react'
 import Link from 'next/link'
-import { Button } from '../UI/Button'
+import Button from '../UI/Button'
 import { cn } from '@/lib/utils'
 
 interface SocialLink {

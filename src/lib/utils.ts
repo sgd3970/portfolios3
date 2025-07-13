@@ -270,3 +270,13 @@ export function scrollToElement(elementId: string, offset: number = 0): void {
     });
   }
 } 
+
+// Framer Motion 애니메이션을 위한 공통 easing 상수
+export const easings = {
+  cubic: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  ease: 'ease',
+  easeIn: 'ease-in',
+  easeOut: 'ease-out',
+  easeInOut: 'ease-in-out',
+  linear: 'linear'
+}; 

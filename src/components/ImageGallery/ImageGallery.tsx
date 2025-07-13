@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { X, ChevronLeft, ChevronRight, ZoomIn, Download, Share2 } from 'lucide-react'
-import { Button } from '../UI/Button'
-import { Card } from '../UI/Card'
+import { X, ChevronLeft, ChevronRight, ZoomIn, Download, Grid, List, Share } from 'lucide-react'
+import Button from '../UI/Button'
+import Card from '../UI/Card'
 import { cn } from '@/lib/utils'
 
 interface GalleryImage {
@@ -422,7 +422,7 @@ export default function ImageGallery({
                       onClick={() => handleShare(images[selectedIndex])}
                       className="bg-white/20 hover:bg-white/30 text-white"
                     >
-                      <Share2 className="w-4 h-4" />
+                      <Share className="w-4 h-4" />
                     </Button>
                   )}
                 </div>

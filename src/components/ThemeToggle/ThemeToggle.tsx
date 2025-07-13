@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Sun, Moon, Monitor, Palette } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { Button } from '../UI/Button'
+import Button from '../UI/Button'
 import { cn } from '@/lib/utils'
 
 interface ThemeToggleProps {

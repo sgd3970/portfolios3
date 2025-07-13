@@ -34,55 +34,58 @@ interface GridItemProps {
   onClick: (project: IProject) => void;
 }
 
-// 그리드 아이템 애니메이션 변형
+// 애니메이션 변형들
+const containerVariants = {
+  initial: { opacity: 0 },
+  animate: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1
+    }
+  }
+};
+
 const gridItemVariants = {
-  initial: { 
-    opacity: 0, 
-    scale: 0.8,
-    filter: 'blur(10px)'
-  },
+  initial: { opacity: 0, scale: 0.8, filter: "blur(4px)" },
   animate: (index: number) => ({
     opacity: 1,
     scale: 1,
-    filter: 'blur(0px)',
+    filter: "blur(0px)",
     transition: {
-      duration: 0.6,
-      delay: index * 0.1,
-      ease: [0.4, 0, 0.2, 1]
+      duration: 0.8,
+      delay: index * 0.2
     }
   }),
   hover: {
     scale: 1.05,
-    zIndex: 10,
+    filter: "blur(0px)",
     transition: {
-      duration: 0.3,
-      ease: [0.4, 0, 0.2, 1]
+      duration: 0.3
     }
   }
 };
 
-// 오버레이 텍스트 애니메이션
 const overlayVariants = {
   initial: { opacity: 0, y: 20 },
-  animate: { 
-    opacity: 1, 
+  animate: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
+    transition: { duration: 0.6 }
   },
-  exit: { 
-    opacity: 0, 
+  exit: {
+    opacity: 0,
     y: -20,
-    transition: { duration: 0.2, ease: [0.4, 0, 0.2, 1] }
+    transition: { duration: 0.3 }
   }
 };
 
-// 메인 타이틀 애니메이션
 const titleVariants = {
-  initial: { opacity: 0, y: 50 },
-  animate: { 
-    opacity: 1, 
+  initial: { opacity: 0, y: 30 },
+  animate: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.8, delay: 0.5, ease: [0.4, 0, 0.2, 1] }
+    transition: { duration: 0.8, delay: 0.2 }
   }
 };
 

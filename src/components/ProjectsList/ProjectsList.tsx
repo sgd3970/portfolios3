@@ -56,21 +56,21 @@ const containerVariants = {
 
 // 필터 바 애니메이션 변형
 const filterVariants = {
-  initial: { opacity: 0, y: -20 },
+  initial: { opacity: 0, y: 20 },
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
+    transition: { duration: 0.5 }
   }
 };
 
 // 섹션 헤더 애니메이션 변형
 const headerVariants = {
-  initial: { opacity: 0, y: 50 },
+  initial: { opacity: 0, y: 30 },
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] }
+    transition: { duration: 0.6 }
   }
 };
 

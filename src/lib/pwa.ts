@@ -1,6 +1,8 @@
 'use client'
 
 // PWA utility functions
+
+// PWA utility functions
 export const pwaUtils = {
   // Check if PWA is supported
   isSupported: (): boolean => {
@@ -186,9 +188,11 @@ export const pwaUtils = {
     if (!('share' in navigator)) {
       // Fallback to clipboard
       try {
-        await navigator.clipboard.writeText(shareData.url || window.location.href)
-        console.log('PWA: Content copied to clipboard')
-        return true
+        if ('clipboard' in navigator && (navigator as any).clipboard) {
+          await (navigator as any).clipboard.writeText(shareData.url || window.location.href)
+          console.log('PWA: Content copied to clipboard')
+          return true
+        }
       } catch (error) {
         console.error('PWA: Share fallback failed:', error)
         return false
@@ -196,15 +200,18 @@ export const pwaUtils = {
     }
 
     try {
-      await navigator.share(shareData)
-      console.log('PWA: Content shared successfully')
-      return true
+      if ('share' in navigator && (navigator as any).share) {
+        await (navigator as any).share(shareData)
+        console.log('PWA: Content shared successfully')
+        return true
+      }
     } catch (error) {
-      if (error.name !== 'AbortError') {
+      if (error instanceof Error && error.name !== 'AbortError') {
         console.error('PWA: Share failed:', error)
       }
       return false
     }
+    return false
   },
 
   // Check network status
@@ -239,8 +246,10 @@ export const pwaUtils = {
 
     try {
       const registration = await navigator.serviceWorker.ready
-      await registration.sync.register(tag)
-      console.log('PWA: Background sync registered:', tag)
+      if ('sync' in registration && (registration as any).sync) {
+        await (registration as any).sync.register(tag)
+        console.log('PWA: Background sync registered:', tag)
+      }
     } catch (error) {
       console.error('PWA: Background sync registration failed:', error)
     }

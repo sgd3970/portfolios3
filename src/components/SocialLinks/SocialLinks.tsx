@@ -127,7 +127,7 @@ export default function SocialLinks({
     }
   }
 
-  const getVariantClasses = (platform: string) => {
+  const getVariantClasses = (link: SocialLink) => {
     const baseClasses = "transition-all duration-200 group"
     
     switch (variant) {
@@ -141,28 +141,28 @@ export default function SocialLinks({
         return cn(
           baseClasses,
           "text-white",
-          `bg-[${platformConfig?.color || '#6B7280'}] hover:opacity-80`
+          `bg-[${link.color || '#6B7280'}] hover:opacity-80`
         )
       case 'outlined':
         return cn(
           baseClasses,
           "text-neutral-600 dark:text-neutral-400 hover:text-white",
           "border-2 border-neutral-300 dark:border-neutral-600",
-          `hover:bg-[${platformConfig?.color || '#6B7280'}] hover:border-[${platformConfig?.color || '#6B7280'}]`
+          `hover:bg-[${link.color || '#6B7280'}] hover:border-[${link.color || '#6B7280'}]`
         )
       case 'floating':
         return cn(
           baseClasses,
           "text-neutral-600 dark:text-neutral-400 hover:text-white",
           "bg-white dark:bg-neutral-800 shadow-lg hover:shadow-xl",
-          `hover:bg-[${platformConfig?.color || '#6B7280'}]`
+          `hover:bg-[${link.color || '#6B7280'}]`
         )
       default:
         return cn(
           baseClasses,
           "text-neutral-600 dark:text-neutral-400",
           "hover:text-white bg-neutral-100 dark:bg-neutral-800",
-          `hover:bg-[${platformConfig?.color || '#6B7280'}]`
+          `hover:bg-[${link.color || '#6B7280'}]`
         )
     }
   }
@@ -287,7 +287,7 @@ export default function SocialLinks({
               onClick={() => handleLinkClick(link)}
               className={cn(
                 getSizeClasses().button,
-                getVariantClasses(link.platform),
+                getVariantClasses(link),
                 rounded ? 'rounded-full' : 'rounded-md',
                 "relative overflow-hidden"
               )}

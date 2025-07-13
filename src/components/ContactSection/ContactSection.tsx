@@ -44,7 +44,7 @@ const itemVariants = {
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] }
+    transition: { duration: 0.6 }
   }
 };
 
@@ -55,13 +55,14 @@ const socialVariants = {
     scale: 1,
     transition: {
       duration: 0.5,
-      delay: index * 0.1,
-      ease: [0.4, 0, 0.2, 1]
+      delay: index * 0.1
     }
   }),
   hover: {
     scale: 1.1,
-    transition: { duration: 0.2 }
+    transition: {
+      duration: 0.2
+    }
   }
 };
 

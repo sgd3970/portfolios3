@@ -44,7 +44,7 @@ const itemVariants = {
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] }
+    transition: { duration: 0.6 }
   }
 };
 
@@ -55,8 +55,7 @@ const skillVariants = {
     scale: 1,
     transition: {
       duration: 0.5,
-      delay: index * 0.1,
-      ease: [0.4, 0, 0.2, 1]
+      delay: index * 0.1
     }
   })
 };
@@ -68,8 +67,7 @@ const statVariants = {
     y: 0,
     transition: {
       duration: 0.6,
-      delay: index * 0.1,
-      ease: [0.4, 0, 0.2, 1]
+      delay: index * 0.1
     }
   })
 };

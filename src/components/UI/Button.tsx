@@ -80,16 +80,16 @@ const shapeStyles = {
   creative: 'rounded-creative'
 };
 
-// 애니메이션 변형
+// 애니메이션 변형들
 const buttonVariants = {
   initial: { scale: 1 },
-  hover: { 
+  hover: {
     scale: 1.05,
-    transition: { duration: 0.2, ease: 'easeInOut' }
+    transition: { duration: 0.2 }
   },
-  tap: { 
+  tap: {
     scale: 0.95,
-    transition: { duration: 0.1, ease: 'easeInOut' }
+    transition: { duration: 0.1 }
   }
 };
 

@@ -52,28 +52,23 @@ const hoverEffectStyles = {
   creative: 'hover:shadow-neon hover:scale-105'
 };
 
-// 애니메이션 변형
+// 애니메이션 변형들
 const cardVariants = {
-  initial: {
-    opacity: 0,
-    y: 50,
-    scale: 0.9
-  },
+  initial: { opacity: 0, y: 20, scale: 0.95 },
   animate: (index: number) => ({
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      duration: 0.5,
-      delay: index * 0.1,
-      ease: [0.4, 0, 0.2, 1]
+      duration: 0.6,
+      delay: index * 0.1
     }
   }),
   hover: {
     y: -8,
+    scale: 1.02,
     transition: {
-      duration: 0.3,
-      ease: [0.4, 0, 0.2, 1]
+      duration: 0.3
     }
   }
 };
@@ -94,9 +89,8 @@ const tagVariants = {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.3,
-      delay: index * 0.05,
-      ease: [0.4, 0, 0.2, 1]
+      duration: 0.4,
+      delay: index * 0.05
     }
   })
 };

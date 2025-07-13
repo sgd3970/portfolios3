@@ -1,26 +1,354 @@
-@import "tailwindcss";
+/* Google Fonts 임포트 */
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Fira+Code:wght@300;400;500;600&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS 리셋 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+/* 기본 루트 변수 설정 */
 :root {
+  /* 라이트 모드 색상 */
   --background: #ffffff;
   --foreground: #171717;
+  --card: #f8fafc;
+  --card-foreground: #0f172a;
+  --primary: #f43f5e;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f43f5e;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #f43f5e;
+  --radius: 0.5rem;
+
+  /* 커스텀 색상 */
+  --accent-coral: #FF6B6B;
+  --accent-mint: #4ECDC4;
+  --accent-sunshine: #FFE66D;
+  --accent-lavender: #A8E6CF;
+  --neutral-warm: #F7F3E9;
+  --neutral-cool: #E8F4F8;
+  --gradient-from: #FF6B6B;
+  --gradient-via: #4ECDC4;
+  --gradient-to: #FFE66D;
+  --gradient-warm: #FFE66D;
+  --gradient-cool: #A8E6CF;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* 다크 모드 시스템 기본값 */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --card: #0a0a0a;
+    --card-foreground: #ededed;
+    --primary: #ededed;
+    --primary-foreground: #0a0a0a;
+    --secondary: #262626;
+    --secondary-foreground: #ededed;
+    --muted: #262626;
+    --muted-foreground: #a1a1aa;
+    --accent: #ededed;
+    --accent-foreground: #0a0a0a;
+    --destructive: #7f1d1d;
+    --destructive-foreground: #ededed;
+    --border: #262626;
+    --input: #262626;
+    --ring: #d4d4d8;
   }
 }
 
+/* 다크 모드 클래스 */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --card: #0a0a0a;
+  --card-foreground: #ededed;
+  --primary: #ededed;
+  --primary-foreground: #0a0a0a;
+  --secondary: #262626;
+  --secondary-foreground: #ededed;
+  --muted: #262626;
+  --muted-foreground: #a1a1aa;
+  --accent: #ededed;
+  --accent-foreground: #0a0a0a;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #ededed;
+  --border: #262626;
+  --input: #262626;
+  --ring: #d4d4d8;
+}
+
+/* 기본 body 스타일 */
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* 선택 영역 스타일 */
+::selection {
+  background: var(--accent-coral);
+  color: white;
+}
+
+::-moz-selection {
+  background: var(--accent-coral);
+  color: white;
+}
+
+/* 스크롤바 스타일 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-coral);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-mint);
+}
+
+/* 링크 기본 스타일 */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-coral);
+}
+
+/* 버튼 기본 스타일 */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+}
+
+/* 이미지 기본 스타일 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 입력 필드 기본 스타일 */
+input,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  border: none;
+  background: transparent;
+}
+
+/* 제목 폰트 스타일 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* 디스플레이 제목 스타일 */
+.display-title {
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.creative-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* 본문 텍스트 스타일 */
+p {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* 모노스페이스 텍스트 */
+code,
+pre {
+  font-family: 'Fira Code', monospace;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+}
+
+/* 유틸리티 클래스 */
+.text-gradient {
+  background: linear-gradient(135deg, var(--gradient-from), var(--gradient-via), var(--gradient-to));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-warm {
+  background: linear-gradient(135deg, var(--gradient-warm), var(--accent-coral));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-cool {
+  background: linear-gradient(135deg, var(--gradient-cool), var(--accent-mint));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 글로우 효과 */
+.glow {
+  box-shadow: 0 0 30px var(--accent-coral);
+}
+
+.glow-mint {
+  box-shadow: 0 0 30px var(--accent-mint);
+}
+
+/* 블러 효과 */
+.blur-load {
+  filter: blur(10px);
+  transition: filter 0.8s ease;
+}
+
+.blur-load.loaded {
+  filter: blur(0);
+}
+
+/* 애니메이션 클래스 */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* 커스텀 마우스 커서 효과 */
+.cursor-creative {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="%23FF6B6B"/></svg>'), auto;
+}
+
+/* 페이지 전환 효과 */
+.page-transition {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-transition.entering {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-transition.entered {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 반응형 유틸리티 */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .display-title {
+    font-size: 2.5rem;
+  }
+  
+  .creative-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+  
+  .display-title {
+    font-size: 2rem;
+  }
+  
+  .creative-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* 접근성 향상 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* 포커스 스타일 */
+:focus-visible {
+  outline: 2px solid var(--accent-coral);
+  outline-offset: 2px;
+}
+
+/* 드래그 방지 */
+.no-drag {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+/* 텍스트 선택 방지 */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

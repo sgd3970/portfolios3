@@ -1,0 +1,27 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": ".next",
+  "trailingSlash": false,
+  "functions": {
+    "app/**": {
+      "maxDuration": 30
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "images": {
+    "domains": [
+      "images.unsplash.com",
+      "picsum.photos"
+    ]
+  }
+} 
